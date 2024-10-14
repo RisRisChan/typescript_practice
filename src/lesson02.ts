@@ -1,50 +1,56 @@
-const main = () => {
+const main2 = () => {
   /***** START 配列の型定義 *****/
   // T[]
   const members: string[] = ["Ryoma", "Yuta"]
   members.push("Shunsuke")
   // members.push(123)
   console.log(members)
-
+  
   // Array<T>
   const friends: Array<string> = ["Taro", "Jiro"]
-
+  friends.push("Saburo")
+  console.log(friends);
+  
   // Union Type との組み合わせ
   const answers: ("Yes" | "No")[] = ["Yes", "No", "Yes"]
   answers.push("Yes")
   // answers.push("Neither")
   console.log(answers)
 
+  const test:("許可" | "却下")[] = ["許可"] 
+  console.log(test)
+  
   // アノテーションしなくても型推論される
   const fruits = ["Apple"]
   fruits.push("Orange")
   // fruits.push(undefined)
   /***** END 配列の型定義 *****/
-
+  
   /***** START タプル = より厳格な配列 *****/
   // 配列の要素数, 順番, 型を定義するとタプルになる
   let response: [number, string, boolean];
   response = [200, "OK", true]
   // response = ["OK", 200, true]
   // response = ["404", "Not Found", false]
-
+  
   // ラベルをつける
   const property: [id: number, name: string] = [1, "email"]
-
+  console.log(property)
+  
   // 可変長引数（レストパラメーター）も使える
   let cacheControl: [boolean, ...string[]]
   cacheControl = [false, "max-age=0"]
   cacheControl = [true, "max-age=86400", "must-revalidate"]
   /***** END タプル = より厳格な配列 *****/
-
+  
   /***** START オブジェクトの型定義 *****/
-  // object型は object であることを伝えるだけなので any と大差ない 🙅
+  // object型は object であることを伝えるだけなので any と大差ない危険な型定義 🙅
   const obj: object = {
     companyName: "toraco株式会社",
     email: "corp@toraco.jp",
   }
   // console.log(obj.email)
-
+  
   // オブジェクトリテラル表記で key と value を明確に定義しよう 👏
   const company: {
     companyName: string
@@ -54,7 +60,7 @@ const main = () => {
     email: "corp@toraco.jp",
   }
   console.log(company.email)
-
+  
   // ? のついたプロパティはオプショナル（あってもなくてもOK）
   const user: {
     email?: string
@@ -65,7 +71,7 @@ const main = () => {
     lastName: "Inagaki"
   }
   console.log(user.email) // undefined
-
+  
   // readonly 修飾子のついたプロパティは上書きできない 🚫
   const post: {
     readonly id: number
@@ -88,7 +94,7 @@ const main = () => {
   cells.B2 = "150円"
   // cells.B3 = 150
   console.log(cells)
-
+  
   // key に指定できる型は string か number のみ ⚠️
   const errorCode: {[key: number]: string} = {
     400: "Bad Request",
@@ -96,11 +102,14 @@ const main = () => {
     403: "Forbidden",
     404: "Not Found",
   }
+  console.log(errorCode)
+  
   // const flags: {[key: boolean]: string} = { true: "OK" }
   /***** END インデックスシグネチャ *****/
 
   /***** START 型エイリアスで型定義を使いまわそう *****/
   // 型エイリアス ( type alias ) で型に名前をつけて宣言できる
+  //型エイリアスは大文字始まり
   type Country = {
     capital: string
     language: string
@@ -118,7 +127,7 @@ const main = () => {
     currency: "Won"
   }
   // 型に名前をつけることで変数の役割を明確にできる ✨
-  // const Gunma: Country = {}
+   //const Gunma: Country = {}
   /***** END 型エイリアスで型定義を使いまわそう *****/
 
   /***** START 合併型 ( union ) と交差型 ( intersection )  *****/
@@ -155,6 +164,7 @@ const main = () => {
     mp: 50
   }
   /***** END 合併型 ( union ) と交差型 ( intersection )  *****/
+  
 
   /***** START 配列とループ処理 *****/
   type CartItem = {
@@ -194,7 +204,7 @@ const main = () => {
   const snackNames = cart.map(cartItem => {
     return cartItem.name
   })
-  console.log(snackNames)
+  console.log("map " + snackNames)
   // filter() はループ処理内で条件にマッチした要素の配列を返す
   const luxurySnacks = cart.filter(cartItem => {
     return cartItem.price >= 200
@@ -203,7 +213,7 @@ const main = () => {
   // reduce() はループごとに前回の値を参照して次のループに渡すことができる
   const total = cart.reduce((prev: number, cartItem: CartItem) => {
     return prev + cartItem.price * cartItem.quantity
-  }, 0)
+  }, 0) //第二引数の0は初期値
   console.log(total)
   /***** END 配列とループ処理 *****/
 
@@ -218,8 +228,8 @@ const main = () => {
   const alwaysThrowError = (message: string): never => {
     throw new Error(message)
   }
-  // alwaysThrowError("This function never returns anything...")
-
+   //alwaysThrowError("This function never returns anything...")
+  
   /***** END 関数でのみ用いる型 *****/
 
   /***** START オプションパラメーターとデフォルトパラメーター  *****/
@@ -233,6 +243,7 @@ const main = () => {
   }
   registerAddress("東京都", "千代田区", "千代田1-1")
   registerAddress("東京都", "千代田区", "千代田1-1", "皇居")
+  
 
   // オプションパラメーターにデフォルト値を指定することができる
   const registerAddressWithDefault = (prefecture: string, city: string, street: string, building = ""): void => {
@@ -241,13 +252,15 @@ const main = () => {
   }
   registerAddressWithDefault("東京都", "千代田区", "千代田1-1")
   registerAddressWithDefault("東京都", "千代田区", "千代田1-1", "皇居")
+  
   /***** END オプションパラメーターとデフォルトパラメーター  *****/
 
   /***** START レストパラメーター *****/
   const sumAllPrice = (...prices: number[]): number => {
-    return prices.reduce((prev, price) => prev + price, 0)
+    return prices.reduce((prev, price) => prev + price, 0) //0は初期値
   }
-  console.log(sumAllPrice(100, 200, 50, 500))
+  console.log(sumAllPrice(100, 200, 50, 500)) //total:850
+  
   /***** END レストパラメーター *****/
 
   /***** START 呼び出しシグネチャ  *****/
@@ -280,11 +293,12 @@ const main = () => {
   ]
 
   // 省略記法はアロー関数と似た形
-  type GetUser = (id: number) => User | undefined
+  type GetUser = (id: number) => User | undefined //戻り値としてUser | undefinedを返す
   const getUser: GetUser = (id) => {
     return users.find(user => user.id === id)
   }
   console.log(getUser(1))
+  
 
   // 完全な記法はオブジェクトと似た形
   type FilterUsersByAge = {
@@ -293,8 +307,9 @@ const main = () => {
   const filterUsersByAge: FilterUsersByAge = (minAge, maxAge) => {
     return users.filter(user => user.age >= minAge && user.age <= maxAge)
   }
-  console.log(filterUsersByAge(27, 29))
+  console.log(filterUsersByAge(26, 29))
+  return
   /***** END 呼び出しシグネチャ  *****/
 }
 
-main()
+main2()
