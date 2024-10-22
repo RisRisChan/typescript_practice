@@ -1,4 +1,5 @@
 // エントリポイントから module を import する
+//実際はfrom './module/index.ts'をimportしているが、index.tsは省略可能
 import { function1, function2, function3, function4 } from './module'
 
 function1()

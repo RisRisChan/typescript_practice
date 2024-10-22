@@ -64,7 +64,7 @@ const main3 = async () => {
   }
   console.log(selectRoulette(1))
   // なぜ null が返ってくるのか関数の呼び出し元では分からない 🤔
-  console.log(selectRoulette(500))
+  //console.log(selectRoulette(500))
   /***** END 例外として null を返してみよう  *****/
 
   /***** START 例外を throw してみよう  *****/
@@ -82,7 +82,7 @@ const main3 = async () => {
   // throw された例外は try/catch で処理しよう
   try {
     const ret = selectRouletteWithThrowingError(2)
-    console.log(ret)
+    console.log("ルーレットの結果" + ret)
   } catch (e) {
     // instanceof 演算子を用いることでエラーの型を判定できる
     if (e instanceof RangeError) {

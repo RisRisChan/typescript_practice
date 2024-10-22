@@ -3,4 +3,5 @@ const function1 = (): void => {
   console.log("This is default exported function 1")
 }
 
+//「default」という名前でexportする
 export default function1

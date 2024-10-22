@@ -25,7 +25,7 @@ const main4 = () => {
     return user.name
   }
 
-  // T, U, V, Wなどがよく使われる
+  // T(TypeのT), U, V, Wなどがよく使われる
   type Omelette = {
     egg: number
   }
@@ -39,8 +39,9 @@ const main4 = () => {
     return { ...omelette, ...yakisoba}
   }
   const omelette: Omelette = { egg: 3 }
-  const yakisoba: Yakisoba = { noodles: 100, pork: 300 }
+  const yakisoba: Yakisoba = { noodles: 500, pork: 300 }
   const omusoba = mergeObject(omelette, yakisoba)
+  console.log('オムそば')
   console.log(omusoba)
   /***** END 型を抽象化する "ジェネリック"  *****/
 

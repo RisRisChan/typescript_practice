@@ -34,7 +34,7 @@ class magazine implements Magazine {
     this.currentPage = page
   }
   close() {
-    this.currentPage = 0
+    this.currentPage = 1
   }
 }
 
